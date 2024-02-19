@@ -15,6 +15,7 @@ const sub=document.querySelector(`.sub`);
 const mult=document.querySelector('.mult');
 const div=document.querySelector(".div");
 const clearr=document.querySelector(".clear");
+const clearall=document.querySelector(`.clearALL`)
 let val=0;
 let tab=[];
 zero.onclick= ()=> getNumber(0);
@@ -28,33 +29,34 @@ set.onclick= ()=> getNumber(7);
 huit.onclick= ()=> getNumber(8);
 neuf.onclick= ()=> getNumber(9);
 
-clearr.onclick =() => {clear(tab)}
+clearr.onclick =() => clear(tab);
+clearall.onclick=()=> clearALL();
 
 plus.onclick =() => { tab.push("+"); setinput("+");
     val=0;
-console.log(tab);
 }
 sub.onclick=()=> {tab.push("-"); setinput("-");
 val=0;
-console.log(tab);
 }
 mult.onclick=()=>{  tab.push("*"); setinput("*");
 val=0;
-console.log(tab);
 }
 div.onclick=()=>{  tab.push("÷"); setinput("÷");
 val=0;
-console.log(tab);
 }
 
 equal.onclick= ()=> { val=0; calculate();}
 
-
+//on cherche les index des operateur selon leur ordre de priorite pour commencet avec
 function calculate(){
-    console.log(tab);
 
 while (tab.indexOf("÷")>0) {
     let brr = tab.indexOf("÷");
+    if(typeof(tab[brr + 1])==="string" ||  tab.length -1  === brr){
+        let div = document.querySelector("#lowwer");
+        div.innerHTML="Erreur ";
+        return;
+    }
     if(tab[brr + 1] == "0"){
         let div = document.querySelector("#lowwer");
         div.innerHTML="Erreur ";
@@ -68,24 +70,38 @@ while (tab.indexOf("÷")>0) {
 
 while (tab.indexOf("*")>0) {
     let brr = tab.indexOf("*");
+    if(typeof(tab[brr + 1])==="string" ||  tab.length -1  === brr){
+        let div = document.querySelector("#lowwer");
+        div.innerHTML="Erreur ";
+        return;
+    }
     let z = tab[brr-1]*tab[brr+1]
     tab.splice(brr-1, 3 ,z );    
 }
 
 while (tab.indexOf("+")>0) {
     let brr = tab.indexOf("+");
+    if(typeof(tab[brr + 1])==="string" ||  tab.length -1  === brr){
+        let div = document.querySelector("#lowwer");
+        div.innerHTML="Erreur ";
+        return;
+    }
     let z = tab[brr-1]+tab[brr+1]
     tab.splice(brr-1, 3 ,z );    
 }
 
 while (tab.indexOf("-")>0) {
     let brr = tab.indexOf("-");
+    if(typeof(tab[brr + 1])==="string" ||  tab.length -1  === brr){
+        let div = document.querySelector("#lowwer");
+        div.innerHTML="Erreur ";
+        return;
+    }
     let z = tab[brr-1]-tab[brr+1]
     tab.splice(brr-1, 3 ,z );    
 }
 setResult(tab);
-clearALL();
-console.log(tab);
+
 }
 
 function clearALL() {
@@ -110,16 +126,12 @@ function clear(tab){
         val=parseFloat(val.toString().slice(0,-1));
         tab.push(val);
         }
-        console.log(tab);
             
     }else{ 
         inp.value=inp.value.slice(0, -3);
         tab.pop();
           
     }
-       console.log(typeof(tab[tab.length-1]));
-       
-        console.log(tab);
 }
 }
 
@@ -136,14 +148,12 @@ function setResult(resulta) {
 
 
 function getNumber(valeur){
-    console.log("marche");
     setinput(valeur);
    if(typeof(tab[tab.length-1])!=="string") {tab.pop();}
     
     let som=valeur;
     val=val*10+som;
     tab.push(val);
-     console.log(tab);
 }
 
 function setinput(val) {
