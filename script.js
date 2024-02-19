@@ -15,7 +15,8 @@ const sub=document.querySelector(`.sub`);
 const mult=document.querySelector('.mult');
 const div=document.querySelector(".div");
 const clearr=document.querySelector(".clear");
-const clearall=document.querySelector(`.clearALL`)
+const clearall=document.querySelector(`.clearALL`);
+const point=document.querySelector(".point");
 let val=0;
 let tab=[];
 zero.onclick= ()=> getNumber(0);
@@ -31,7 +32,8 @@ neuf.onclick= ()=> getNumber(9);
 
 clearr.onclick =() => clear(tab);
 clearall.onclick=()=> clearALL();
-
+point.onclick=()=> {
+    tab.push(".");  setinput("."); point.classList.remove('point')};
 plus.onclick =() => { tab.push("+"); setinput("+");
     val=0;
 }

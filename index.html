@@ -3,12 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script
+      src="https://kit.fontawesome.com/4c536a6bd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <title>calculator</title>
   </head>
   <body>
     <header>
-      <h1>calculator</h1>
+      <h1 class="tete animate__animated animate__tada">calculator</h1>
     </header>
 
     <div class="container">
@@ -38,9 +49,21 @@
       <button class="box operator sub">-</button>
 
       <button class="box nbr zero">0</button>
-      <button class="box operator">.</button>
+      <button class="box operator point">.</button>
       <button class="box operator equal">=</button>
     </div>
+    <footer class="footer">
+      <p>
+        Copyright ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        assinscreedFC
+      </p>
+      <a href="https://github.com/assinscreedFC" target="_blank">
+        <i class="fab fa-github"></i
+      ></a>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>
