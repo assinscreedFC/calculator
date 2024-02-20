@@ -19,6 +19,8 @@ const clearall=document.querySelector(`.clearALL`);
 const point=document.querySelector(".point");
 let val=0;
 let tab=[];
+let puis=0;
+let reel=false;
 zero.onclick= ()=> getNumber(0);
 un.onclick= ()=> getNumber(1);
 deux.onclick= ()=> getNumber(2);
@@ -30,24 +32,37 @@ set.onclick= ()=> getNumber(7);
 huit.onclick= ()=> getNumber(8);
 neuf.onclick= ()=> getNumber(9);
 
-clearr.onclick =() => clear(tab);
-clearall.onclick=()=> clearALL();
-point.onclick=()=> {
-    tab.push(".");  setinput("."); point.classList.remove('point')};
-plus.onclick =() => { tab.push("+"); setinput("+");
-    val=0;
-}
-sub.onclick=()=> {tab.push("-"); setinput("-");
-val=0;
-}
-mult.onclick=()=>{  tab.push("*"); setinput("*");
-val=0;
-}
-div.onclick=()=>{  tab.push("÷"); setinput("÷");
-val=0;
-}
+clearr.onclick =() => {clear(tab); if(point.classList.length===2){point.classList.add("point");reel=true;};}
+clearall.onclick=()=> {clearALL(); if(point.classList.length===2){point.classList.add("point"); reel=true;}}
+
+point.onclick=()=> { 
+      parseFloat(tab[tab.length-1]);
+      if(point.classList.length===3) {document.querySelector("#upper").value+=".";}
+      puis=0;
+      reel=true;
+      point.classList.remove("point") ;    };
+
+plus.onclick =() => setZero("+")
+
+sub.onclick=()=> setZero("-")
+
+mult.onclick=()=> setZero("*")
+div.onclick=()=> setZero("÷")
+
+
 
 equal.onclick= ()=> { val=0; calculate();}
+
+
+function setZero(operator) {
+    val=0;
+    puis=0;
+    reel=false;
+    tab.push(operator);
+    if(point.classList.length===2){point.classList.add("point");}
+    setinput(operator);
+    
+}
 
 //on cherche les index des operateur selon leur ordre de priorite pour commencet avec
 function calculate(){
@@ -109,9 +124,12 @@ setResult(tab);
 function clearALL() {
     tab= [];
     val=0;
+    puis=0;
+    reel=false;
     document.querySelector("#upper").value=" ";
     let div = document.querySelector("#lowwer");
     div.innerHTML=" ";
+    
 
     
 }
@@ -151,10 +169,23 @@ function setResult(resulta) {
 
 function getNumber(valeur){
     setinput(valeur);
-   if(typeof(tab[tab.length-1])!=="string") {tab.pop();}
-    
-    let som=valeur;
-    val=val*10+som;
+   if(typeof(tab[tab.length-1])!=="string")
+    {
+        tab.pop();    
+    }
+    if (reel) {
+        // valeur=valeur*pow(10,puis);
+        console.log(valeur);puis-=1;
+        let less =Math.pow(10,puis);
+        valeur =valeur*less;
+        val=val+valeur;
+        console.log(valeur);
+
+        
+    }else{
+    // let som=valeur;
+    val=val*10+valeur;
+    }
     tab.push(val);
 }
 
